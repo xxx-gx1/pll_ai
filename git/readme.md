@@ -11,3 +11,5 @@
 # git 配置
 - git config --global user.name"xxx-gx1"
 - git config --global user.email"3081470459@qq.com"
+
+- new.txt
