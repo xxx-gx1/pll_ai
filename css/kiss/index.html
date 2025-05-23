@@ -30,12 +30,64 @@
             vertical-align: top;
             position: relative;/* 相对定位,子元素相对它定位 */
         }
+        .face{
+            width: 70px;
+            height: 30px;
+            position: absolute; /* 绝对定位,相对于父元素定位 */
+            right: 0;
+            top: 30px;
+            border-top-right-radius: 15px;
+            /*background-color: green;*/
+        }
+        .eye{
+            width: 15px;
+            height: 14px;
+            border-radius: 50%;
+            border-bottom: 5px solid black;
+            position: absolute;
+        }
+        .eye-l{
+            left: 10px;
+        }
+        .eye-r{
+            right: 5px;
+        }
+        .mouth{
+            width: 30px;
+            height: 14px;
+            border-radius: 50%;
+            border-bottom: 5px solid black;
+            position: absolute;
+            bottom: -5px;
+            transform: translate(3px);
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        .eye-r-p{
+            border-top: 5px solid black;
+            border-bottom: 0px;
+            
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="l-ball" class="ball"></div>
-        <div id="r-ball" class="ball"></div>
+        <div id="l-ball" class="ball">
+            <div class="face face-l">
+                <div class="eye eye-l"></div>
+                <div class="eye eye-r"></div>
+                <mouth class="mouth"></mouth>
+
+            </div>
+        </div>  
+        <div id="r-ball" class="ball">
+            <div class="face face-l">
+                <div class="eye eye-l eye-r-p"></div>
+                <div class="eye eye-r eye-r-p"></div>
+                <mouth class="mouth mouth-r"></mouth>
+            </div>
+        </div>
     </div>
 </body>
 </html>

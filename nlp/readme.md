@@ -22,3 +22,5 @@
 
   semantic_cls = pipeline(Tasks.text_classification,
   'damo/nlp_structbert_sentiment-classification_chinese-base')
+  打分 label分类
+  result = semantic_cls(input='胡总吉他弹得真好')

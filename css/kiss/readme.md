@@ -29,3 +29,16 @@
   inline-block 行内块级 设置宽高 占一行
   inline 行内 不可以设置宽高
   block 块级 独占一行
+
+- 面向对象的css
+  多态
+  复用 多类名 
+- 定位
+  - position 定位
+    static 静态定位（默认定位）没有定位能力
+    relative 相对定位
+      - 子元素相对于它定位
+      - 相对于自身的位置定位
+    absolute 绝对定位
+      - 相对于最近的定位祖先（管着它的）元素定位，不找static的属性定位
+    .container absolute body
