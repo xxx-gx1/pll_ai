@@ -40,5 +40,7 @@
       - 子元素相对于它定位
       - 相对于自身的位置定位
     absolute 绝对定位
-      - 相对于最近的定位祖先（管着它的）元素定位，不找static的属性定位
+      - absolute找相对于最近的定位祖先（管着它的）元素定位，不找static的属性定位
+      直到body为止
+        
     .container absolute body
