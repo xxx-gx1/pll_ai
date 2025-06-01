@@ -32,4 +32,4 @@
     - 页面由block构成 .weui-{block}
     - block 包含一些elements  .weui-{block}__{element}
     - element 会有些状态 
-        .weui-{block}__{element}--{modifier}
+        .weui-{block}__{element}__{modifier}
