@@ -7,7 +7,7 @@ public class Person {
     public Person(int pupyAge) {
         this.pupyAge = pupyAge;
     }
-    // 共有方法
+    // 公有方法
     public void say() {
         System.out.println("汪汪汪");
     }
