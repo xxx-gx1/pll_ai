@@ -3,9 +3,9 @@ import './App.css'
 
 function App() {
   // 火山引擎tts 配置文件
-  const TOKEN = 'SR1hB5WJo6mvN2p6nhARP_2DC06RB93H';
-  const APP_ID = '3065516566';
-  const CLUSTER_ID = 'volcano_tts';
+  // const TOKEN = 'SR1hB5WJo6mvN2p6nhARP_2DC06RB93H';
+  // const APP_ID = '3065516566';
+  // const CLUSTER_ID = 'volcano_tts';
 
   // 代码的可读性高于一切
   const [prompt,setPrompt] = useState('大家好，我是蔡徐坤');
