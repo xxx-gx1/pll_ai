@@ -3,9 +3,7 @@ import './App.css'
 
 function App() {
   // 火山引擎tts 配置文件
-  // const TOKEN = 'SR1hB5WJo6mvN2p6nhARP_2DC06RB93H';
-  // const APP_ID = '3065516566';
-  // const CLUSTER_ID = 'volcano_tts';
+  const { VITE_TOKEN, VITE_APP_ID, VITE_CLUSTER_ID } = import.meta.env
 
   // 代码的可读性高于一切
   const [prompt,setPrompt] = useState('大家好，我是蔡徐坤');
@@ -26,7 +24,7 @@ function App() {
     
     const headers = {
       'Content-Type':'application/json',
-      Authorization:`Bearer;${TOKEN}`
+      Authorization:`Bearer;${VITE_TOKEN}`
     }
   }
   return (

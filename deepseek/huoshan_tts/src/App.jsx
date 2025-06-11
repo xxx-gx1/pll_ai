@@ -3,7 +3,7 @@ import './App.css'
 
 function App() {
   // 配置
-  const { VITE_TOKEN, VITE_APP_ID, VITE_CLUSTER_ID } = import.meta.env 
+  const { VITE_TOKEN, VITE_APP_ID, VITE_CLUSTER_ID } = import.meta.env
   // console.log(VITE_TOKEN, VITE_APP_ID, VITE_CLUSTER_ID, '////')
 
   const [prompt, setPrompt] = useState('大家好，我是蔡徐坤');
