@@ -12,28 +12,52 @@ const Todos = () => {
     const [todos,setTodos] = useState([
         {
             id:1,
-            title:'唱',
+            text:'唱',
             isComplete:false
         },
         {
             id:2,
-            title:'跳',
+            text:'跳',
             isComplete:false
         },
         {
             id:3,
-            title:'rap',
-            isComplete:true
+            text:'rap',
+            isComplete:false
         },
         {
             id:4,
-            title:'篮球',
-            isComplete:true
+            text:'篮球',
+            isComplete:false
         }
     ]);
     // 新增todo
-    const addTodo = (todo) => {
-        setTodos([...todos,todo]);
+    const addTodo = (text) => {
+        // 数据状态是对象的时候 要给对象添加id
+        setTodos([
+            ...todos,
+        {
+            id:Date.now(),
+            text,
+            isComplete:false
+        }]);
+    }
+
+    const onToggle = (id) => {
+        // console.log(id);
+        // todos 数组找到id 为id，isComplete  !isComplete
+        // 响应式？ 返回一个全新的todos
+        setTodos(todos.map(
+            todo => todo.id === id 
+            ? {...todo,isComplete:!todo.isComplete} 
+            : todo
+        ))
+
+        // state 是对象或数组的时候
+    }
+
+    const onDelete = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id))
     }
 
     return (
@@ -41,7 +65,11 @@ const Todos = () => {
             Todos
             {/* 自定义事件 */}
             <TodoForm onAddTodo={addTodo} />
-            <TodoList todos={todos} />
+            <TodoList 
+                todos={todos} 
+                onToggle={onToggle}
+                onDelete={onDelete}
+            />
         </div>
     )
 }
