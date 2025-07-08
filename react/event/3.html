@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="root">
+    <ul id="myList">
+        <li data-item="1">Item 1</li>
+        <li data-item="2">Item 2</li>
+        <li data-item="3">Item 3</li>
+        <li data-item="4">Item 4</li>
+    </ul>
+    <buttom id="btn">添加节点</buttom>
+</div>
+<script>
+// 事件委托
+// 
+document.getElementById('myList')
+.addEventListener('click',function(event){
+    console.log(event.target.innerText);
+})
+document.getElementById('btn')
+.addEventListener('click',function(){
+    // 动态添加节点
+    const newLi = document.createElement('li');
+    newLi.appendChild(
+        document.createTextNode('item-new')
+    );
+    newLi.addEventListener('click', function() {
+        console.log('haha');
+
+    })
+    document.getElementById('myList').appendChild(
+        newLi
+    );
+})
+</script>
+</body>
+</html>
