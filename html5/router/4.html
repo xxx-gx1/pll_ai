@@ -10,11 +10,31 @@
     <button onclick="navigate('/home')">首页</button>
     <button onclick="navigate('/about')">关于</button>
     <button onclick="navigate('/contact')">联系</button>
+    <button onclick="navigate('/login')">登录</button>
+    <button onclick="replace('/pay')">支付</button>
+    <a href="http://www.zhihu.com">知乎</a>
     <div class="view">当前试图</div>
     <script>
-        function navigate(url){
-            
-        }
+    function render(path){
+        document.querySelector('.view').textContent = `当前试图:${path}`
+    }
+
+    function replace(path){
+        history.replaceState({path},'',path)
+        render(path)
+    }
+    
+    function navigate(path){
+    // url 含义，持有数据状态 state
+        // 入history栈， 不更新
+        history.pushState({path},'',path)
+        render(path)
+    }
+    // 监听浏览器前进或后退事件
+    window.addEventListener('popstate',(e)=>{
+        console.log(e.state)
+        render(e.state?.path || location.pathname)
+    })
     </script>
 </body>
 </html>
