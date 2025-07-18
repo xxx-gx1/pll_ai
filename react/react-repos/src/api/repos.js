@@ -10,6 +10,6 @@ export const getRepos = (username) => {
     return axios.get(`${BASE_URL}users/${username}/repos`);
 }
 
-export const getRepo = (username, repo) => {
+export const getRepoDetail = (username, repo) => {
     return axios.get(`${BASE_URL}repos/${username}/${repo}`);
 }
