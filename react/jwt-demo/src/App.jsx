@@ -1,23 +1,38 @@
 import { 
   useState,
-  useEffect 
+  useEffect, 
+  Suspense,
+  lazy
 } from 'react'
 import './App.css'
 import {
-  getUser
-} from './api/user';
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from 'react-router-dom'
+import NavBar from './components/NavBar'
+const Home = lazy(() => import('./view/Home'));
+const Login = lazy(() => import('./view/Login'));
+const Pay = lazy(() => import('./view/Pay'));
+const RequireAuth = lazy(() => import('./components/RequireAuth'));
 function App() {
-  const [user, setUser] = useState(null);
   useEffect(() => {
-    (async () => {
-      const res = await getUser();
-      console.log(res);
-      setUser(res.data);
-    })()
+    
   }, [])
   return (
     <>
-      
+      <NavBar></NavBar>
+      <Suspense fallback={<div>loading</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/pay" element={
+            <RequireAuth>
+              <Pay />
+            </RequireAuth>
+          } />
+        </Routes>
+      </Suspense>
     </>
   )
 }
