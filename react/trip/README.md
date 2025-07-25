@@ -121,7 +121,15 @@ Readme.md 很重要 方便面试官
         - react-vant + @react-vant/icons
         - value + onChange 响应式
         - 直接点击分享 active 的设置下
-
+- chatbot 模块
+    - llm 模块 chat 封装
+    - 迭代chat ， 支持任意模型
+## 项目亮点和难点
+- 前端智能
+    - chat 函数
+    - 对各家模型比较感兴趣  ，升级为kimiChat，豆包chat... 灵活
+        性能、能力、性价比
+        随意切换大模型，通过参数抽象
 - 自定义Hooks
     - useTitle
     一定要设置
@@ -131,3 +139,11 @@ Readme.md 很重要 方便面试官
     - arr.findIndex
     - str.startsWith
     - promise
+
+- 项目迭代
+    - 项目由浅入深
+    - chatbot deepseek 简单chat
+    - deepseek-r1 推理模型
+    - 流式输出
+    - 上下文
+    - coze 工作流接口调用
