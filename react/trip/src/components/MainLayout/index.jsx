@@ -37,8 +37,13 @@ const MainLayout = () => {
         setActive(index);
     },[])
   return (
-    <>
-      <Outlet />
+    <div 
+    className='flex flex-col h-screen'
+    style={{paddingBottom: '60px'}}
+    >
+      <div className='flex-1'>
+        <Outlet />
+      </div>
       {/* tabbar */}
       <Tabbar value={active} onChange={
         (key) => {
@@ -52,7 +57,7 @@ const MainLayout = () => {
             </Tabbar.Item>
         ))}
       </Tabbar>
-    </>
+    </div>
   )
 }
 
