@@ -49,3 +49,20 @@ export const kimiChat = async (messages) => {
     )
     return res;
 }
+
+export const generateAvatar = async (text) => {
+    // 设计prompt
+    const prompt = `
+    你是一位漫画设计师，需要为用户设计头像，主打简单、 clean、 现代的设计风格。
+    用户的信息是${text}
+    要求：
+    1. 头像必须是正方形的。
+    2. 头像必须是png格式的。
+    3. 头像必须是128*128的大小。
+    4. 头像必须是透明背景的。
+    5. 头像必须是矢量图的。
+    6. 头像必须是可缩放的。
+    7. 头像必须是可编辑的。
+    8. 头像必须是可导出的。
+    `
+}

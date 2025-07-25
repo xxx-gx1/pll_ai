@@ -1,57 +1,173 @@
 import {
-  useEffect,
-  useState
+    useEffect,
+    useState
 } from 'react';
-import { kimiChat } from '@/llm'
-import  useTitle  from '@/hooks/useTitle'
-import styles from './trip.module.css'
-import { 
-  Input,
-  Button,
-  Loading
-} from 'react-vant';
+import {
+    Button,
+    Input,
+    Loading,
+    Toast
+} from 'react-vant'
+
+import useTitle from '@/hooks/useTitle'
+import {
+    chat
+} from '@/llm'
+import styles from './trip.module.css';
+import {
+    ChatO,
+    UserO
+} from '@react-vant/icons';
 
 const Trip = () => {
-  const [text, setText] = useState('');
-  const [isSending, setIsSending] = useState(false);
+    useTitle('旅游智能客服')
+    const [text, setText] = useState("");
+    const [isSending, setIsSending] = useState(false);
+    // 数据驱动界面
+    // 静态界面 
+    const [messages, setMessages] = useState([
+        {
+            id: 1,
+            content: 'hello, I am your assistant~~',
+            role: 'assistant'
+        },
+        {
+            id: 2,
+            content: 'hello~',
+            role: 'user'
+        },
+        {
+            id: 1,
+            content: 'hello, I am your assistant~~',
+            role: 'assistant'
+        },
+        {
+            id: 2,
+            content: 'hello~',
+            role: 'user'
+        },
+        {
+            id: 1,
+            content: 'hello, I am your assistant~~',
+            role: 'assistant'
+        },
+        {
+            id: 2,
+            content: 'hello~',
+            role: 'user'
+        },
+        {
+            id: 1,
+            content: 'hello, I am your assistant~~',
+            role: 'assistant'
+        },
+        {
+            id: 2,
+            content: 'hello~',
+            role: 'user'
+        },
+        {
+            id: 1,
+            content: 'hello, I am your assistant~~',
+            role: 'assistant'
+        },
+        {
+            id: 2,
+            content: 'hello~',
+            role: 'user'
+        },
+        {
+            id: 1,
+            content: 'hello, I am your assistant~~',
+            role: 'assistant'
+        },
+        {
+            id: 2,
+            content: 'hello~',
+            role: 'user'
+        },
+        {
+            id: 1,
+            content: 'hello, I am your assistant~~',
+            role: 'assistant'
+        },
+        {
+            id: 2,
+            content: 'hello~',
+            role: 'user'
+        },
+        {
+            id: 1,
+            content: 'hello, I am your assistant~~',
+            role: 'assistant'
+        }
+    ]);
 
-  const handleChat = () => {
-    if(text.trim() === ''){
-      return;
+    const handleChat = async () => {
+        if (text.trim() === "") {
+            return
+        }
+        setIsSending(true)
+        setText("")
+        setMessages((prev) => {
+            return [
+                ...prev,
+                {
+                    role: 'user',
+                    content: text
+                }
+            ]
+        })
+        const newMessage = await chat([
+            {
+                role: 'user',
+                content: text
+            }
+        ]);
+        console.log(newMessage)
+        setMessages((prev) => {
+            return [
+                ...prev,
+                newMessage.data
+            ]
+        })
+        setIsSending(false)
     }
-    setIsSending(true);
-  }
-  // useEffect(() => {
-  //   const fetchChat = async () => {
-  //     const res = await kimiChat([
-  //       {
-  //         role:'user',
-  //         content:'重庆旅游推荐'
-  //       }
-  //     ]);
-  //     console.log(res);
-  //   }
-  //   fetchChat();
-  // },[])
-  useTitle('旅游智能客服')
-  return (
-    <div className='flex flex-col h-all'>
-      <div className={`${styles.chatArea} flex-1`}>
-
-      </div>
-      <div className={`flex ${styles.inputArea} `}>
-        <Input 
-          value={text}
-          onChange={(e) => setText(e)}
-          placeholder='请输入消息'
-          className={`${styles.input} flex-1`}
-        >
-        </Input>
-        <Button type='primary' onClick={handleChat} disabled={isSending}>发送</Button>
-        {isSending && (<div className='fixed-loading'><Loading type='ball'/></div>)}
-      </div>
-    </div>
-  )
+    return (
+        <div className="flex flex-col h-all">
+            <div className={`flex-1 ${styles.chatArea}`}>
+                {
+                    messages.map((msg, index) => (
+                        <div
+                            key={index}
+                            className={
+                                msg.role === 'user' ?
+                                    styles.messageRight :
+                                    styles.messageLeft
+                            }
+                        >
+                            {
+                                msg.role === 'assistant' ?
+                                    <ChatO /> :
+                                    <UserO />
+                            }
+                            {msg.content}
+                        </div>
+                    ))
+                }
+            </div>
+            <div className={`flex ${styles.inputArea}`}>
+                <Input
+                    value={text}
+                    onChange={(e) => setText(e)}
+                    placeholder="请输入消息"
+                    className={`flex-1 ${styles.input}`}
+                />
+                <Button disabled={isSending} type="primary" onClick={handleChat} >发送</Button>
+            </div>
+            {isSending && (<div className="fixed-loading"><Loading type="ball" /></div>)}
+        </div>
+    )
 }
 
 export default Trip
