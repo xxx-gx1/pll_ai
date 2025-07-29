@@ -22,7 +22,7 @@ import {
     Logistics,
     Description,
     LikeO,
-    
+
 } from '@react-vant/icons';
 
 
@@ -70,11 +70,11 @@ const Detail = () => {
             </nav>
             {/* 幻灯片 */}
             <div className={styles.container}>
-                <Swiper>
+                <Swiper autoplay interval={3000}>
                 {
                     detail.images.map((item, index) => (
                         <Swiper.Item key={index}>
-                            <Image lazyload src={item.url}/>
+                            <Image src={item.url}/>
                         </Swiper.Item>
                     ))
                 }
