@@ -18,5 +18,14 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src')
     }
+  },
+  server: {
+    proxy: {
+      '/tts': {
+        target: 'https://openspeech.bytedance.com',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/tts/, ''),
+      }
+    },
   }
 })
