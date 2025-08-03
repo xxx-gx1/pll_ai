@@ -36,7 +36,7 @@ const MainLayout = () => {
         // es6的使用power
         const index = tabs.findIndex(tab => location.pathname.startsWith(tab.path));
         setActive(index);
-    },[])
+    },[location.pathname])
   return (
     <div 
     className='flex flex-col h-screen'

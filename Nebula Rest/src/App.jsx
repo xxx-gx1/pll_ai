@@ -13,6 +13,8 @@ const Record = lazy(() => import('@/pages/Record'))
 const Stories = lazy(() => import('@/pages/Stories'))
 const Profile = lazy(() => import('@/pages/Profile'))
 const SleepAssistant = lazy(() => import('@/pages/SleepAssistant'))
+const Login = lazy(() => import('@/pages/Login'))
+import AuthRoute from '@/components/AuthRoute/AuthRoute'
 import MainLayout from '@/components/MainLayout'
 import BlankLayout from '@/components/BlankLayout'
 import Loading from '@/components/Loading'
@@ -30,12 +32,17 @@ function App() {
             <Route path='/record' element={<Record />} />
             <Route path='/stories' element={<Stories />} />
             <Route path='/chat' element={<SleepAssistant />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route path='/profile' element={
+              <AuthRoute>
+                <Profile />
+              </AuthRoute>
+              } />
           </Route>
         </Routes>
         {/* 空Layout */}
         <Routes>
           <Route element={<BlankLayout />}>
+            <Route path='/login' element={<Login />} />
             {/* <Route path='/search' element={<Search />} /> */}
           </Route>
         </Routes>
