@@ -1,7 +1,10 @@
 import { 
-  useState
+  useState,
+  useRef
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { 
+  useNavigate 
+} from 'react-router-dom';
 import { 
   Image, 
   Cell, 
@@ -29,12 +32,17 @@ import {
   VipCardO,
   ShopO,
 } from '@react-vant/icons'
-import { useUserStore } from '@/store/user';
+import { 
+  useUserStore 
+} from '@/store/user';
 import styles from './profile.module.css';
+import  useTitle  from '@/hooks/useTitle';
 
 const Profile = () => {
+  useTitle('个人中心');
   const [showActionSheet, setShowActionSheet] = useState(false);
   const [isGeneratingAvatar, setIsGeneratingAvatar] = useState(false);
+  const [imgPreview, setImgPreview] = useState('https://res.bearbobo.com/resource/upload/W44yyxvl/upload-ih56twxirei.png');
   const [userInfo, setUserInfo] = useState({
     nickname: '姑息',
     level: '5级',
@@ -67,7 +75,14 @@ const Profile = () => {
   ];
   const { Logout } = useUserStore();
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
+  // 添加触发文件选择对话框的函数
+  const triggerFileSelect = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
   // 添加退出登录处理函数
   const handleLogout = () => {
     Logout();
@@ -93,7 +108,7 @@ const Profile = () => {
       } 
     } else if (e.type === 2) {
       // 图片上传
-      
+      triggerFileSelect();
     }
   };
   
@@ -108,10 +123,55 @@ const Profile = () => {
   const handleFeatureNotImplemented = (featureName) => {
     alert(`${featureName}功能暂未实现`);
   };
+  const uploadImgData = async (file) => {
+    if (!file) return;
+
+    setIsGeneratingAvatar(true);
+    try {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async () => {
+        const base64Data = reader.result;
+        setImgPreview(base64Data);
+        // 调用上传API
+        await uploadImg(base64Data);
+        setIsGeneratingAvatar(false);
+      };
+    } catch (error) {
+      console.error('上传失败:', error);
+      setIsGeneratingAvatar(false);
+    }
+  };
+
+  // 添加服务器上传实现
+  const uploadImg = async (base64Data) => {
+    try {
+      const response = await fetch('/api/upload-avatar', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ avatar: base64Data })
+      });
+      const result = await response.json();
+      if (result.code === 0) {
+        // 更新用户信息
+        setUserInfo(prev => ({ ...prev, avatar: result.data.url }));
+      } else {
+      }
+    } catch (error) {
+      alert('网络错误，上传失败');
+    }
+  };
 
   return (
     <div className={styles.container}>
       {/* 顶部用户信息卡片 */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/*"
+        style={{ display: 'none' }}
+        onChange={(e) => uploadImgData(e.target.files[0])}
+      />
       <div className={styles.userCard}>
         <div className={styles.userHeader}>
           <div className={styles.avatarContainer}>

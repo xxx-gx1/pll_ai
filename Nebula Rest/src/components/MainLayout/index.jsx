@@ -8,7 +8,7 @@ import {
 import {
     HomeO,
     UserO,
-    NotesO,
+    ClockO,
     NewspaperO,
     ChatO
 } from '@react-vant/icons';
@@ -20,9 +20,9 @@ import {
 
 // 菜单栏配置
 const tabs = [
-    {title: '入睡',icon: <HomeO/>,path: '/home'},
-    {title: '记录',icon: <NotesO />,path: '/record'},
+    {title: '首页',icon: <HomeO/>,path: '/home'},
     {title: '故事',icon: <NewspaperO  />,path: '/stories'},
+    {title: '睡觉',icon: <ClockO  />,path: '/sleep'},
     {title: '睡眠助手',icon: <ChatO  />,path: '/chat'},
     {title: '我的',icon:  <UserO />,path: '/profile'},
 

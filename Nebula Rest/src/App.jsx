@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 import './App.css'
 const Home = lazy(() => import('@/pages/Home'))
-const Record = lazy(() => import('@/pages/Record'))
+const Sleep = lazy(() => import('@/pages/Sleep'))
 const Stories = lazy(() => import('@/pages/Stories'))
 const Profile = lazy(() => import('@/pages/Profile'))
 const SleepAssistant = lazy(() => import('@/pages/SleepAssistant'))
@@ -29,7 +29,7 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path='/' element={<Navigate to="/home" />} />
             <Route path='/home' element={<Home />} />
-            <Route path='/record' element={<Record />} />
+            <Route path='/sleep' element={<Sleep />} />
             <Route path='/stories' element={<Stories />} />
             <Route path='/chat' element={<SleepAssistant />} />
             <Route path='/profile' element={

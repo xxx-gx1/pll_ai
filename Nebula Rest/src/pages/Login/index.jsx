@@ -12,6 +12,7 @@ import {
 } from '@react-vant/icons';
 import styles from './login.module.css';
 import { useUserStore } from '@/store/user';
+import  useTitle  from '@/hooks/useTitle';
 
 const Login = () => {
   const usernameRef = useRef(null);
@@ -19,6 +20,7 @@ const Login = () => {
   const { Login, isLogin } = useUserStore();
   const navigate = useNavigate();
   const [error, setError] = useState('');
+  useTitle('登录');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
