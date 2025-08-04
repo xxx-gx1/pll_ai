@@ -3,9 +3,6 @@ import {
   useEffect
 } from 'react';
 import { 
-  useNavigate 
-} from 'react-router-dom';
-import { 
   StarO, 
   Play, 
   Pause, 
@@ -21,7 +18,6 @@ import {
 } from '@/utils/index';
 
 const Home = () => {
-  const navigate = useNavigate();
   useTitle('首页');
   const timerRef = useRef(null);
 
@@ -35,7 +31,8 @@ const Home = () => {
     prevSong,
     nextSong,
     setProgress,
-    setCurrentTime
+    setCurrentTime,
+    setCurrentSongIndex
   } = useMusicStore();
   const currentSong = songs[currentSongIndex];
 
@@ -74,10 +71,6 @@ const Home = () => {
       }
     };
   }, [isPlaying, currentTime, currentSong.duration, nextSong, setProgress, setCurrentTime]);
-  // 跳转到播放详情页
-  const goToPlayer = () => {
-    navigate('/player');
-  };
 
   return (
     <div className={styles.container}>
@@ -86,7 +79,7 @@ const Home = () => {
         <p>让音乐带你进入甜美的梦乡</p>
       </div>
 
-      <div className={styles.player} onClick={goToPlayer}>
+      <div className={styles.player} >
         <div className={styles.moonIconContainer}>
           <StarO className={styles.moonIcon} />
         </div>
@@ -116,7 +109,26 @@ const Home = () => {
 
       <h2 className={styles.recommendationTitle}>为你推荐</h2>
       <div className={styles.recommendationList}>
-        <div className={styles.recommendationItem} onClick={() => navigate('/player?song=wave')}>
+        <div className={styles.recommendationItem} onClick={() => {
+            setCurrentSongIndex(0);
+            togglePlay();
+          }
+        }>
+          <img
+            src="https://ts1.tc.mm.bing.net/th/id/OIP-C.O5YxsGVx8FUVK6vI4wYJJQHaEo?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+            alt="轻柔雨声"
+            className={styles.recommendationImage}
+          />
+          <div className={styles.recommendationContent}>
+            <h3 className={styles.recommendationItemTitle}>轻柔雨声</h3>
+            <p className={styles.recommendationItemDuration}>3分45秒</p>
+          </div>
+        </div>
+        <div className={styles.recommendationItem} onClick={() => {
+            setCurrentSongIndex(1);
+            togglePlay();
+          }
+        }>
           <img
             src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"
             alt="轻柔海浪"
@@ -127,7 +139,11 @@ const Home = () => {
             <p className={styles.recommendationItemDuration}>20分钟</p>
           </div>
         </div>
-        <div className={styles.recommendationItem} onClick={() => navigate('/player?song=fire')}>
+        <div className={styles.recommendationItem} onClick={() => {
+            setCurrentSongIndex(2);
+            togglePlay();
+          }
+        }>
           <img
             src="https://images.unsplash.com/photo-1518176258769-f227c798150e"
             alt="温暖篝火"
@@ -138,7 +154,11 @@ const Home = () => {
             <p className={styles.recommendationItemDuration}>30分钟</p>
           </div>
         </div>
-        <div className={styles.recommendationItem} onClick={() => navigate('/player?song=wind')}>
+        <div className={styles.recommendationItem} onClick={() => {
+            setCurrentSongIndex(3);
+            togglePlay();
+          }
+        }>
           <img
             src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e"
             alt="山间清风"
@@ -149,7 +169,11 @@ const Home = () => {
             <p className={styles.recommendationItemDuration}>25分钟</p>
           </div>
         </div>
-        <div className={styles.recommendationItem} onClick={() => navigate('/player?song=rainforest')}>
+        <div className={styles.recommendationItem} onClick={() => {
+            setCurrentSongIndex(4);
+            togglePlay();
+          }
+        }>
           <img
             src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
             alt="热带雨林"
@@ -160,7 +184,11 @@ const Home = () => {
             <p className={styles.recommendationItemDuration}>40分钟</p>
           </div>
         </div>
-        <div className={styles.recommendationItem} onClick={() => navigate('/player?song=waterfall')}>
+        <div className={styles.recommendationItem} onClick={() => {
+            setCurrentSongIndex(5);
+            togglePlay();
+          }
+        }>
           <img
             src="https://pic.616pic.com/photoone/00/05/72/618e25c5ab1e33537.jpg"
             alt="瀑布流水"
@@ -171,7 +199,11 @@ const Home = () => {
             <p className={styles.recommendationItemDuration}>35分钟</p>
           </div>
         </div>
-        <div className={styles.recommendationItem} onClick={() => navigate('/player?song=birds')}>
+        <div className={styles.recommendationItem} onClick={() => {
+            setCurrentSongIndex(6);
+            togglePlay();
+          }
+        }>
           <img
             src="https://bpic.588ku.com/back_origin_min_pic/21/08/02/65c7d0b8bef1e5b120c0101d8ce5adf7.jpg!/fw/750/quality/99/unsharp/true/compress/true"
             alt="晨间鸟鸣"
