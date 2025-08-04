@@ -25,7 +25,7 @@ export const useDataStore = create((set, get) => ({
                 stories: result.data, // 直接使用data字段
                 filteredStories: result.data,
                 currentPage: page,
-                isLoading: false
+                isLoading: false,
             });
         }
     } catch (err) {
@@ -45,7 +45,7 @@ export const useDataStore = create((set, get) => ({
           stories: [...get().stories, ...result.data],
           filteredStories: [...get().filteredStories, ...result.data],
           currentPage: currentPage + 1,
-          isLoading: false
+          isLoading: false,
         });
       }
     } catch (err) {

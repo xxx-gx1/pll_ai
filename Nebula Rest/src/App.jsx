@@ -14,6 +14,7 @@ const Stories = lazy(() => import('@/pages/Stories'))
 const Profile = lazy(() => import('@/pages/Profile'))
 const SleepAssistant = lazy(() => import('@/pages/SleepAssistant'))
 const Login = lazy(() => import('@/pages/Login'))
+const StoryDetail = lazy(() => import('@/pages/StoryDetail'))
 import AuthRoute from '@/components/AuthRoute/AuthRoute'
 import MainLayout from '@/components/MainLayout'
 import BlankLayout from '@/components/BlankLayout'
@@ -43,7 +44,7 @@ function App() {
         <Routes>
           <Route element={<BlankLayout />}>
             <Route path='/login' element={<Login />} />
-            {/* <Route path='/search' element={<Search />} /> */}
+            <Route path='/stories/:storyId' element={<StoryDetail />} />
           </Route>
         </Routes>
       </Suspense>
