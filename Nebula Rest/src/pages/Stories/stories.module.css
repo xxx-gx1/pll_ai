@@ -61,6 +61,9 @@
   margin-bottom: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s;
+  height: 100%; /* 确保卡片高度充满容器 */
+  display: flex;
+  flex-direction: column;
 }
 
 .storyCard:hover {
@@ -75,6 +78,9 @@
 
 .storyContent {
   padding: 12px;
+  flex: 1; /* 让内容区域自动填充剩余空间 */
+  display: flex;
+  flex-direction: column;
 }
 
 .storyTitle {
@@ -104,6 +110,7 @@
   align-items: center;
   font-size: 12px;
   color: #999;
+  margin-top: auto; /* 元信息推至底部 */
 }
 
 .durationIcon {

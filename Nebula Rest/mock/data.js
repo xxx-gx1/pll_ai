@@ -103,6 +103,7 @@ export default [
                 'desc': '@cparagraph(3, 5)',
                 'image': '@image(300x400, @color, #fff, 故事封面)',
                 'duration': '@integer(10, 30)分钟',
+                'height': '@integer(150, 200)',
                 'content': '@cparagraph(100, 200)',
                 'category': '@pick(["童话", "冒险", "科普", "成长", "友情"])' 
             }]

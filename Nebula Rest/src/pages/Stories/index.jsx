@@ -26,6 +26,7 @@ const Stories = () => {
   const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
   const searchRef = useRef(null)
+  const sentinelRef = useRef(null);
   useTitle('故事');
   // 从Store获取状态和方法
   const {
@@ -33,10 +34,34 @@ const Stories = () => {
     filteredStories, 
     isLoading, 
     fetchStories, 
-    loadMoreStories, 
+    loadMoreStories,
     filterStories
   } = useDataStore();
 
+  useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0];
+      // 当哨兵元素可见且不在加载状态时触发加载更多
+      if (entry.isIntersecting && !isLoading) {
+        loadMoreStories();
+      }
+    },
+    { threshold: 0.1 }
+  );
+
+  const sentinel = sentinelRef.current;
+  if (sentinel) {
+    observer.observe(sentinel);
+  }
+
+  // 组件卸载时停止观察
+  return () => {
+    if (sentinel) {
+      observer.unobserve(sentinel);
+    }
+  };
+}, [isLoading, loadMoreStories]);
   // 初始化数据
   useEffect(() => {
     fetchStories(1);
@@ -103,7 +128,7 @@ const Stories = () => {
         <div className={styles.waterfall}>
           {filteredStories.length > 0 ? (
             filteredStories.map(story => (
-              <div 
+              <div style={{height: story.height}}
                 key={story.id} 
                 className={styles.storyCard} 
                 onClick={() => goToStoryDetail(story.id)}
@@ -134,14 +159,8 @@ const Stories = () => {
         </div>
 
         {/* 加载更多按钮 */}
-        <div className={styles.loadMore}>
-          <button 
-            className={styles.loadMoreButton} 
-            onClick={loadMoreStories} // 调用Store加载更多方法
-            disabled={isLoading}
-          >
-            {isLoading ? '加载中...' : '加载更多'}
-          </button>
+        <div ref={sentinelRef} className={styles.sentinel}>
+          {isLoading && '加载中...'}  
         </div>
       </div>
     </div>
