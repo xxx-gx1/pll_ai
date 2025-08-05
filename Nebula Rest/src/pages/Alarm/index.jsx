@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { 
+  useState,
+  useCallback,
+  memo
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
     ArrowLeft, 
@@ -8,6 +12,7 @@ import { useAlarmStore } from '@/store/alarmStore';
 import TimePicker from '@/components/TimePicker';
 import styles from './alarm.module.css';
 
+const MemoizedTimePicker = memo(TimePicker);
 const Alarm = () => {
   const navigate = useNavigate();
   const {
@@ -52,7 +57,8 @@ const Alarm = () => {
   };
 
   // 保存新闹钟
-  const saveNewAlarm = () => {
+  const saveNewAlarm = useCallback(() => {  
+
     if (!validateForm()) return;
 
     addAlarm({
@@ -70,17 +76,18 @@ const Alarm = () => {
     });
     closeForm();
 
-  };
+  }, [newAlarm]);
+
   // 打开时间选择器
   const openTimePicker = () => {
     setPickerVisible(true);
   };
 
   // 确认选择时间
-  const handleTimeConfirm = (time) => {
+  const handleTimeConfirm = useCallback((time) => {
     setNewAlarm({ ...newAlarm, time });
     setPickerVisible(false);
-  };
+  }, [newAlarm]);
 
 
   return (
@@ -201,7 +208,7 @@ const Alarm = () => {
             </div>
           </div>
                 {/* 时间选择器 */}
-            <TimePicker
+            <MemoizedTimePicker
                 visible={pickerVisible}
                 onConfirm={handleTimeConfirm}
                 onCancel={() => setPickerVisible(false)}

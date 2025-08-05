@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { 
+  useState,
+  useCallback,
+  useMemo
+} from 'react';
 import styles from './nap.module.css';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -31,26 +35,31 @@ const Nap = () => {
   } = useNapStore();
 
   // 处理模式选择
-  const handleModeSelect = (selectedMode) => {
-  setMode(selectedMode);
-  setShowCustomInput(selectedMode === 'custom');
-  // 新增：切换模式时重置或初始化时间
-  if (selectedMode !== 'custom') {
-    // 根据模式设置默认时间
-    const defaultMinutes = selectedMode === 'science' ? 10 : 
-                          selectedMode === 'efficient' ? 24 :
-                          selectedMode === 'travel' ? 40 : 90;
-    setCustomMinutes(defaultMinutes);
-  }
-};
+  const handleModeSelect = useCallback((selectedMode) => {
+    setMode(selectedMode);
+    setShowCustomInput(selectedMode === 'custom');
+    // 新增：切换模式时重置或初始化时间
+    if (selectedMode !== 'custom') {
+      // 根据模式设置默认时间
+      const defaultMinutes = selectedMode === 'science' ? 10 : 
+                            selectedMode === 'efficient' ? 24 :
+                            selectedMode === 'travel' ? 40 : 90;
+      setCustomMinutes(defaultMinutes);
+    }
+  }, [setMode, setCustomMinutes]);
 
-  // 自定义时间增减
-  const adjustCustomTime = (delta) => {
-    const newMinutes = customMinutes + delta;
-    setCustomMinutes(newMinutes);
-  };
+    // 自定义时间增减
+    const adjustCustomTime = useCallback((delta) => {
+      const newMinutes = customMinutes + delta;
+      setCustomMinutes(newMinutes);
+    }, [customMinutes, setCustomMinutes]);
+
+    // 缓存渐变背景计算结果
+    const gradientStyle = useMemo(() => ({
+      background: getCurrentGradient()
+    }), [getCurrentGradient]);
   return (
-    <div className={styles.container} style={{ background: getCurrentGradient() }}>
+    <div className={styles.container} style={gradientStyle}>
       {/* 顶部导航 */}
       <div className={styles.header}>
         <button className={styles.backButton} onClick={() => navigate('/sleep')}>
