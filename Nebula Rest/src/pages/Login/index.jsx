@@ -45,7 +45,7 @@ const Login = () => {
   // 监听登录状态变化，如果已登录则直接导航
   useEffect(() => {
     if (isLogin) {
-      navigate('/');
+      navigate('/profile');
     }
   }, [isLogin, navigate]);
 

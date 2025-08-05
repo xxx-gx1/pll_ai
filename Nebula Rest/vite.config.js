@@ -25,7 +25,7 @@ export default defineConfig({
         target: 'https://openspeech.bytedance.com',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/tts/, ''),
-      }
+      },
     },
   }
 })

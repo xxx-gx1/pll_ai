@@ -15,6 +15,8 @@ const Profile = lazy(() => import('@/pages/Profile'))
 const SleepAssistant = lazy(() => import('@/pages/SleepAssistant'))
 const Login = lazy(() => import('@/pages/Login'))
 const StoryDetail = lazy(() => import('@/pages/StoryDetail'))
+const Alarm = lazy(() => import('@/pages/Alarm'))
+const Nap = lazy(() => import('@/pages/Nap'))
 import AuthRoute from '@/components/AuthRoute/AuthRoute'
 import MainLayout from '@/components/MainLayout'
 import BlankLayout from '@/components/BlankLayout'
@@ -45,6 +47,8 @@ function App() {
           <Route element={<BlankLayout />}>
             <Route path='/login' element={<Login />} />
             <Route path='/stories/:storyId' element={<StoryDetail />} />
+            <Route path='/sleep/alarm' element={<Alarm />} />
+            <Route path='/sleep/nap' element={<Nap />} />
           </Route>
         </Routes>
       </Suspense>

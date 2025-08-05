@@ -37,6 +37,7 @@ import {
 } from '@/store/user';
 import styles from './profile.module.css';
 import  useTitle  from '@/hooks/useTitle';
+import { generateImage } from '@/llm/image';
 
 const Profile = () => {
   useTitle('个人中心');
@@ -63,7 +64,7 @@ const Profile = () => {
   
   const actions = [
     {
-      name: '随机头像',
+      name: 'AI生成头像',
       color: '#1e90ff',
       type: 1
     },
@@ -89,6 +90,12 @@ const Profile = () => {
     navigate('/login');
   };
   
+  const prompt = `
+  根据${userInfo.nickname}和${userInfo.slogan}生成一个新的头像,
+  风格是卡通风格，背景是白色的，
+  头像是一个人，要好看的人，内容可以有${userInfo.nickname}，
+  头像要符合${userInfo.slogan}的风格。
+  `
   const handleAction = async (e) => {
     setShowActionSheet(false);
     
@@ -96,15 +103,14 @@ const Profile = () => {
       // AI 生成头像
       setIsGeneratingAvatar(true);
       try {
-        // 模拟AI生成过程
         await new Promise(resolve => setTimeout(resolve, 1500));
-        
         // 生成新头像
-        const newAvatar = `https://picsum.photos/200?${Math.random()}`;
+        const newAvatar = await generateImage(prompt);
+        setImgPreview(newAvatar);
         setUserInfo(prev => ({ ...prev, avatar: newAvatar }));
-        
+        setIsGeneratingAvatar(false);
       } catch (error) {
-        
+        setIsGeneratingAvatar(false);
       } 
     } else if (e.type === 2) {
       // 图片上传
