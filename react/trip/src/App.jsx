@@ -16,6 +16,8 @@ const Trip = lazy(() => import('@/pages/Trip'));
 const Account = lazy(() => import('@/pages/Account'));
 const Detail = lazy(() => import('@/pages/Detail'));
 const Coze = lazy(() => import('@/pages/Coze'));
+const Article = lazy(() => import('@/pages/Article'));
+const ArticleNew = lazy(() => import('@/pages/Article/ArticleNew'));
 import MainLayout from '@/components/MainLayout'
 import BlankLayout from '@/components/BlankLayout'
 import Loading from '@/components/Loading'
@@ -41,6 +43,9 @@ function App() {
         <Routes>
           <Route element={<BlankLayout />}>
             <Route path='/search' element={<Search />} />
+            <Route path='/article' element={<Article />} >
+              <Route path='new' element={<ArticleNew />} />
+            </Route>
             <Route path='/detail/:id' element={<Detail />} />
             <Route path="/coze" element={<Coze />}/>
           </Route>
