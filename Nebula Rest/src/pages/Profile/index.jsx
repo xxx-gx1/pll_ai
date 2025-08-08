@@ -37,7 +37,7 @@ import {
 } from '@/store/user';
 import styles from './profile.module.css';
 import  useTitle  from '@/hooks/useTitle';
-import { generateImage } from '@/llm/image';
+import { generateAvatarImage } from '@/llm/image';
 
 const Profile = () => {
   useTitle('个人中心');
@@ -91,10 +91,7 @@ const Profile = () => {
   };
   
   const prompt = `
-  根据${userInfo.nickname}和${userInfo.slogan}生成一个新的头像,
-  风格是卡通风格，背景是白色的，
-  头像是一个人，要好看的人，内容可以有${userInfo.nickname}，
-  头像要符合${userInfo.slogan}的风格。
+  根据${userInfo.nickname}和${userInfo.slogan}生成一个卡通头像,
   `
   const handleAction = async (e) => {
     setShowActionSheet(false);
@@ -105,9 +102,11 @@ const Profile = () => {
       try {
         await new Promise(resolve => setTimeout(resolve, 1500));
         // 生成新头像
-        const newAvatar = await generateImage(prompt);
-        setImgPreview(newAvatar);
-        setUserInfo(prev => ({ ...prev, avatar: newAvatar }));
+        const newAvatar = await generateAvatarImage(prompt);
+        console.log(newAvatar)
+        setImgPreview(newAvatar.data.imageUrl);
+        setUserInfo(prev => ({ ...prev, avatar: newAvatar.data.imageUrl }));
+
         setIsGeneratingAvatar(false);
       } catch (error) {
         setIsGeneratingAvatar(false);
