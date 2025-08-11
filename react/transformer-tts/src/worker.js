@@ -28,13 +28,48 @@ class MyTextToSpeechPipeline {
     static vocoder_instance = null;
 
     static async getInstance(progress_callback=null) {
+        // 分词器实例化
         if(this.tokenizer_instance === null) {
             // 之前处理过的大模型，被预训练过的
-            this.tokenizer_instance = await AutoTokenizer.from_pretrained(this.model_id,{
-                progress_callback
-            })
-
+            this.tokenizer = await AutoTokenizer.from_pretrained(
+                this.model_id,
+                {
+                    progress_callback
+                }
+            )
+            // console.log(this.tokenizer,'//////')
         }
+        if(this.model_instance === null) {
+            // 模型下载
+            this.model_instance = await SpeechT5ForTextToSpeech.from_pretrained(
+                this.model_id,
+                {
+                    dtype: 'fp32',
+                    progress_callback
+                }
+            )
+        }
+        if(this.vocoder_instance === null) {
+            this.vocoder_instance = await SpeechT5HifiGan.from_pretrained(
+                this.vocoder_id,
+                {
+                    dtype: 'fp32',
+                    progress_callback
+                }
+            )
+        }
+        return new Promise (async (resolve,reject) => {
+            const result = await Promise.all([
+                this.tokenizer,
+                this.model_instance,
+                this.vocoder_instance
+            ])
+            self.postMessage({
+                status:'ready'
+            })
+            resolve(result);
+
+        })
 
     }
 }
