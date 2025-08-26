@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+// Promise 状态有3个 状态：pending，fulfilled，rejected
+// pending -> fulfilled/rejected
+// 而且不可改变
+Promise.MyAll = function(promises) {
+    let arr = []; // 结果数组
+    let count = 0; // 计数器
+    return new Promise((resolve,rejecr) => {
+        // resolve -> all  promises 所有都resolve 才能调用
+        // 如果promise[i]不是promise怎么办？ Promise.resolve()
+        promises.forEach((item,i) => {
+            // 里面变promise
+            Promise.resolve(item).then(res => {
+                arr[i] = res;
+                count ++;
+                if(count === promises.length) {
+                    resolve(arr);
+                }
+            }).catch(err => {
+                rejecr(err);
+            })
+        })
+    })
+}
+</script>
+</body>
+</html>
