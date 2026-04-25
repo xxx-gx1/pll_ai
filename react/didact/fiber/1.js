@@ -5,7 +5,7 @@ let nextUnitOfWork = null;
 function workLoop(deadline){
     let shouldYield = false; // 不中断
     while(nextUnitOfWork && !shouldYield){
-        nextUnitOfWork = performaUnitOfWork(nextUnitOfWork);
+        nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
         // 如果任务时间小于1ms，停止执行，避免阻塞渲染
         shouldYield = deadline.timeRemaining() < 1;
     }
